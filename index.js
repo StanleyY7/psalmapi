@@ -47,3 +47,5 @@ app.get("/psalms", (req, res) => {
 app.listen(3000, () => {
   console.log("\nWelcome, the Psalms API is active :) \n");
 });
+
+module.exports = app;
