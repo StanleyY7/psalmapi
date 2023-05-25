@@ -1,15 +1,21 @@
 /* Welcome to the Psalms API codebase */
 
+// I commented out the database version of this API as it is still in development (working on deployment),
+// so currently hard-coded as easier deployment with just one Dockerfile instead of docker-compose or multiple docker containers/files
+// as lots of providers don't have support for docker-compose.
+
 // Config
 
 const bodyParser = require("body-parser");
-const mysql = require("mysql");
+// const mysql = require("mysql2");
 const express = require("express");
+const psalms = require("./data");
 const app = express();
 require("dotenv").config();
 
 // Functions/Methods
 
+/*
 let connection = mysql.createConnection({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -24,15 +30,18 @@ connection.connect((e) => {
     console.log(JSON.stringify(e, undefined, 2));
   }
 });
+*/
 
 app.use(bodyParser.json());
 
 app.get("/psalms", (req, res) => {
+  /*
   connection.query(`SELECT * FROM psalms`, (err, results) => {
     if (!err) {
       const psalms = results.map((row) => ({
         row: row.id,
         verse: JSON.parse(row.verse),
+        book: row.book,
         version: row.version,
       }));
       console.log("Error: " + JSON.stringify(results));
@@ -42,9 +51,18 @@ app.get("/psalms", (req, res) => {
       res.status(500).json({ error: `${err}` });
     }
   });
+  */
+
+  try {
+    console.log(psalms[2].verse[0]);
+    res.send(psalms);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: `${e}` });
+  }
 });
 
-app.listen(3000, () => {
+app.listen(5173, () => {
   console.log("\nWelcome, the Psalms API is active :) \n");
 });
 
