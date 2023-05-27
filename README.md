@@ -4,4 +4,6 @@ A REST API of Pslams. Created as I was wanting to create a website that displays
 
 Deployed Link: https://restless-feather-6525.fly.dev/psalms
 
+There is also a GraphQL version (REST API wrapped as GraphQL via Apollo Server): https://falling-frost-8420.fly.dev/ (github repo link: https://github.com/StanleyY7/psalmsGraphQL)
+
 (Frontend in progress/development)
