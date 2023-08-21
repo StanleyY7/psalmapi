@@ -5,7 +5,7 @@
 // as lots of providers don't have support for docker-compose.
 
 // Config
-
+const helmet = require("helmet");
 const bodyParser = require("body-parser");
 // const mysql = require("mysql2");
 const express = require("express");
@@ -33,6 +33,7 @@ connection.connect((e) => {
 */
 
 app.use(bodyParser.json());
+app.use(helmet());
 
 app.get("/psalms", (req, res) => {
   /*
@@ -54,15 +55,15 @@ app.get("/psalms", (req, res) => {
   */
 
   try {
-    console.log(psalms[2].verse[0]);
     res.send(psalms);
   } catch (e) {
     console.log(e);
     res.status(500).json({ error: `${e}` });
+    res.send(`${e} Please add /psalms to end of url and try again.`);
   }
 });
 
-app.listen(5173, () => {
+app.listen(3000, () => {
   console.log("\nWelcome, the Psalms API is active :) \n");
 });
 
